@@ -7,7 +7,9 @@ from flair.tokenization import JapaneseTokenizer
 from flair.models import TextClassifier
 
 class Model():
-
+    def __init__(self):
+        self.tokenizer = JapaneseTokenizer("janome")
+        self.classifier = TextClassifier.load('./weight/final-model.pt')
     def predict(self, input:str):
         """
         Resize input to 100 by 100.
@@ -18,15 +20,12 @@ class Model():
         """
         # content = open("data/data1/10000positive.txt", encoding="utf8").readlines()
         # init japanese tokenizer
-        tokenizer = JapaneseTokenizer("janome")
+        
         # make sentence (and tokenize)
-        print(input)
-        sentence = Sentence(input, use_tokenizer=tokenizer)    
+        sentence = Sentence(input, use_tokenizer=self.tokenizer)    
 
-        classifier = TextClassifier.load('./weight/final-model.pt')
         # predict class and print
-        classifier.predict(sentence)
-        print(sentence.labels)
+        self.classifier.predict(sentence)
         result = str(sentence.labels[0])
         return result
 
