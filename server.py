@@ -36,7 +36,6 @@ model = Model()
 # Serve model
 serve_model = ServeModel(model)
 
-model.predict("どういたしまして")
 # Deploy model
 if __name__ == '__main__':
     from mlchain.server import FlaskServer
